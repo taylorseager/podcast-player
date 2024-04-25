@@ -2,7 +2,7 @@
   "name": "podcast-player",
   "private": true,
   "version": "1.0.0",
-  "author": "Felicia Mings",
+  "author": "Felicia Mings, Taylor Seager",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
