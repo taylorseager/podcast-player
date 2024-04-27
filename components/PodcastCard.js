@@ -1,9 +1,34 @@
-import React from 'react';
+import PropTypes from 'prop-types';
+import { Button, Card } from 'react-bootstrap';
 
-export default function PodcastCard() {
+export default function PodcastCard({ podcastObj }) {
   return (
-    <div>
-      This is a podcast card
-    </div>
+    <Card className="podcastCard" style={{ width: '18rem' }}>
+      <Card.Title>{podcastObj.name}</Card.Title>
+      <Card.Img variant="top" src={podcastObj.image} />
+      <Card.Body>
+        <Card.Text>
+          Author(s): {podcastObj.author}
+        </Card.Text>
+        <Card.Text>
+          About: {podcastObj.description}
+        </Card.Text>
+        <Card.Text>
+          Length: {podcastObj.length} Minutes
+        </Card.Text>
+        <Button variant="primary">Add to Playlist</Button>
+      </Card.Body>
+    </Card>
   );
 }
+
+PodcastCard.propTypes = {
+  podcastObj: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    image: PropTypes.string,
+    author: PropTypes.string,
+    description: PropTypes.string,
+    length: PropTypes.number,
+  }).isRequired,
+};

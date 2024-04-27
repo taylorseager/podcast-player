@@ -5,6 +5,7 @@ const endpoint = clientCredentials.databaseURL;
 
 // PROMISE TO GET ALL PODCASTS
 const getAllPodcasts = () => new Promise((resolve, reject) => {
+  console.warn(endpoint);
   fetch(`${endpoint}/api/getAllPodcasts`, {
     method: 'GET',
     headers: {
