@@ -75,8 +75,8 @@ const deletePlaylist = (id) => new Promise((resolve, reject) => {
       'Content-Type': 'application/json',
     },
   })
-    .then((response) => response.json())
-    .then((data) => resolve((data)))
+    .then((response) => response.text())
+    .then((data) => resolve(data))
     .catch(reject);
 });
 
