@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { Button, Card } from 'react-bootstrap';
 
@@ -16,7 +17,9 @@ export default function PodcastCard({ podcastObj }) {
         <Card.Text>
           Length: {podcastObj.length} Minutes
         </Card.Text>
-        <Button variant="primary">Add to Playlist</Button>
+        <Link passHref href={`podcast/${podcastObj.id}`}>
+          <Button variant="primary">Add to Playlist</Button>
+        </Link>
       </Card.Body>
     </Card>
   );
