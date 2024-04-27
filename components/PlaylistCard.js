@@ -9,6 +9,7 @@ function PlaylistCard({ playlistObj }) {
       <Card.Img variant="top" src={playlistObj.image} />
       <Card.Body>
         <Card.Title>{playlistObj.title}</Card.Title>
+        <p>Playlist Quantity: {playlistObj.podcastQuantity}</p>
         <Button variant="primary" className="m-2">VIEW</Button>
         <Button variant="info">EDIT</Button>
         <Button variant="danger" className="m-2">DELETE</Button>
@@ -21,6 +22,7 @@ PlaylistCard.propTypes = {
   playlistObj: PropTypes.shape({
     title: PropTypes.string,
     image: PropTypes.string,
+    podcastQuantity: PropTypes.string,
     ownerID: PropTypes.number,
   }).isRequired,
 };
