@@ -42,12 +42,13 @@ const getAllUserPlaylists = (userId) => new Promise((resolve, reject) => {
 });
 
 // creates a new playlist
-const createPlaylist = () => new Promise((resolve, reject) => {
+const createPlaylist = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/api/createPlaylist`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
+    body: JSON.stringify(payload),
   })
     .then((response) => response.json())
     .then((data) => resolve((data)))
