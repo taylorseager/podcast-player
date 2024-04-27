@@ -21,7 +21,7 @@ PlaylistCard.propTypes = {
   playlistObj: PropTypes.shape({
     title: PropTypes.string,
     image: PropTypes.string,
-    ownerID: PropTypes.string,
+    ownerID: PropTypes.number,
   }).isRequired,
 };
 
