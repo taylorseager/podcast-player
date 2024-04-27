@@ -1,26 +1,25 @@
-// import { useEffect, useState } from 'react';
-// import { getSinglePlaylist } from '../api/playlistData';
+import { useEffect, useState } from 'react';
+import { useAuth } from '../utils/context/authContext';
+import { getAllPlaylists } from '../api/playlistData';
+import PlaylistCard from '../components/PlaylistCard';
 
 export default function ViewPlaylists() {
-  // const [data, setData] = useState(null);
+  const [playlists, setPlaylists] = useState([]);
+  const { user } = useAuth();
+  const getAllUserPlaylists = () => {
+    getAllPlaylists(user.uid).then(setPlaylists);
+  };
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await getSinglePlaylist(1);
-  //       console.warn(response);
-  //       setData(response);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    getAllUserPlaylists();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <div>
-      This is to view playlist cards
+    <div className="d-flex flex-wrap">
+      {playlists.map((playlist) => (
+        <PlaylistCard key={playlist.ownerID} playlistObj={playlist} onUpdate={getAllUserPlaylists} />
+      ))}
     </div>
   );
 }
