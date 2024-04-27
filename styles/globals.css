@@ -17,6 +17,10 @@ a {
   box-sizing: border-box;
 }
 
+.podcastCard {
+  margin: 10px;
+}
+
 body {
   background-color: #88effd;
 }
