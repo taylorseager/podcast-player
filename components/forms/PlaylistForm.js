@@ -38,7 +38,7 @@ function PlaylistForm({ playlistObj }) {
     if (playlistObj && playlistObj.id) {
       updatePlaylist(formInput).then(() => router.push('/podcasts'));
     } else {
-      const payload = { ...formInput, ownerID: user.uid };
+      const payload = { ...formInput, ownerID: -1 };
       console.warn('The contents of the payload are:', payload);
       createPlaylist(payload).then(() => router.push('/podcasts'));
     }
