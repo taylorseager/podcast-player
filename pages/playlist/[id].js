@@ -14,6 +14,6 @@ export default function ViewPlaylists() {
   }, [id]);
 
   return (
-    <PlaylistForm playlistObject={editItem} />
+    <PlaylistForm playlistObj={editItem} />
   );
 }
