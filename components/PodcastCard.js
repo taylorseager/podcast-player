@@ -20,6 +20,9 @@ export default function PodcastCard({ podcastObj }) {
         <Link passHref href={`podcast/${podcastObj.id}`}>
           <Button variant="primary">Add to Playlist</Button>
         </Link>
+        <Link href={`/podcast/${podcastObj?.id}`} passHref>
+          <Button variant="primary" className="m-2">View</Button>
+        </Link>
       </Card.Body>
     </Card>
   );

@@ -11,4 +11,16 @@ const viewPlaylistDetails = (playlistId) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
-export default viewPlaylistDetails;
+const viewPodcastDetails = (podcastId) => new Promise((resolve, reject) => {
+  getSinglePodcast(podcastId).then((podcastObject) => {
+    getSinglePodcast(podcastObject.podcastId)
+      .then((playlistObject) => {
+        resolve({ ...playlistObject, podcastObject });
+      });
+  }).catch((error) => reject(error));
+});
+
+export default {
+  viewPlaylistDetails,
+  viewPodcastDetails,
+};
