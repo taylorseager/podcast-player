@@ -1,6 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 import { deletePlaylist } from '../api/playlistData';
 
 function PlaylistCard({ playlistObj, onUpdate }) {
@@ -16,8 +17,12 @@ function PlaylistCard({ playlistObj, onUpdate }) {
       <Card.Body>
         <Card.Title>{playlistObj.title}</Card.Title>
         <p>Playlist Quantity: {playlistObj.podcastQuantity}</p>
-        <Button variant="primary" className="m-2">VIEW</Button>
-        <Button variant="info">EDIT</Button>
+        <Link href={`/playlist/${playlistObj.id}`} passHref>
+          <Button variant="primary" className="m-2">VIEW</Button>
+        </Link>
+        <Link href={`/playlist/edit/${playlistObj.id}`} passHref>
+          <Button variant="info">EDIT</Button>
+        </Link>
         <Button variant="danger" onClick={deleteThisPlaylist} className="m-2">DELETE</Button>
       </Card.Body>
     </Card>
