@@ -14,7 +14,6 @@ const initialState = {
 };
 
 function PlaylistForm({ playlistObj }) {
-  console.warn(playlistObj);
   const [formInput, setFormInput] = useState(initialState);
 
   const router = useRouter();
@@ -37,7 +36,6 @@ function PlaylistForm({ playlistObj }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.warn('handleSubmit', playlistObj);
     if (playlistObj.id) {
       updatePlaylist(formInput).then(() => router.push('/podcasts'));
     } else {

@@ -56,14 +56,15 @@ const createPlaylist = (payload) => new Promise((resolve, reject) => {
 });
 
 // updates playlist based on specific id
-const updatePlaylist = (id) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/api/updatePlaylist/${id}`, {
-    method: 'PUT',
+const updatePlaylist = (payload) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/api/updatePlaylist/${payload.id}`, {
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
+    body: JSON.stringify(payload),
   })
-    .then((response) => response.json())
+    .then((response) => response.text())
     .then((data) => resolve((data)))
     .catch(reject);
 });
