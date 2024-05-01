@@ -51,6 +51,8 @@ export default function AddToPlaylistForm() {
       .catch((error) => {
         console.error('Error processing details or relationships:', error);
       });
+
+    router.push('/podcasts');
   };
 
   // Creates and dynamically updates an array of the currently checked boxes on the form.
