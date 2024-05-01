@@ -1,10 +1,10 @@
 import { getSinglePlaylist } from './playlistData';
-import { getSinglePodcast } from './podcastData';
+import { getSinglePodcast, getAllPodcastsForSinglePlaylist } from './podcastData';
 
 const viewPlaylistDetails = (playlistId) => new Promise((resolve, reject) => {
   getSinglePlaylist(playlistId)
     .then((playlistObject) => {
-      getSinglePodcast(playlistObject.podcastId)
+      getAllPodcastsForSinglePlaylist(playlistObject.podcastId)
         .then((podcastObject) => {
           resolve({ podcastObject, ...playlistObject });
         });
@@ -20,7 +20,7 @@ const viewPodcastDetails = (podcastId) => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
-export default {
+export {
   viewPlaylistDetails,
   viewPodcastDetails,
 };

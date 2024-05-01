@@ -17,6 +17,7 @@ const getAllPlaylists = () => new Promise((resolve, reject) => {
 
 // gets a single playlist by id
 const getSinglePlaylist = (id) => new Promise((resolve, reject) => {
+  console.warn(id);
   fetch(`${endpoint}/api/getSinglePlaylist/${id}`, {
     method: 'GET',
     headers: {
