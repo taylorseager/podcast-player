@@ -25,7 +25,7 @@ const getAllPodcasts = () => new Promise((resolve, reject) => {
 
 // PROMISE TO GET SINGLE PODCAST
 const getSinglePodcast = (id) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/api/getSinglePodcast/${id}`, {
+  fetch(`${endpoint}/api/getSinglePodcast/${id}.json`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -36,4 +36,17 @@ const getSinglePodcast = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-export { getAllPodcasts, getSinglePodcast };
+// PROMISE TO GET ALL PODCASTS FOR A SINGLE PLAYLIST
+const getAllPodcastsForSinglePlaylist = (playlistId) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/api/getAllPodcastsForSinglePlaylist/${playlistId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
+
+export { getAllPodcasts, getSinglePodcast, getAllPodcastsForSinglePlaylist };

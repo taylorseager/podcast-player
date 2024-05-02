@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import PropTypes from 'prop-types';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 import { deletePlaylist } from '../api/playlistData';
 
 function PlaylistCard({ playlistObj, onUpdate }) {
@@ -34,7 +34,7 @@ PlaylistCard.propTypes = {
     id: PropTypes.number,
     title: PropTypes.string,
     image: PropTypes.string,
-    podcastQuantity: PropTypes.string,
+    podcastQuantity: PropTypes.number,
     ownerID: PropTypes.number,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,

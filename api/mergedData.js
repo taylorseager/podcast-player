@@ -1,5 +1,5 @@
 import { getSinglePlaylist } from './playlistData';
-import { getSinglePodcast } from './podcastData';
+import { getSinglePodcast, getAllPodcastsForSinglePlaylist } from './podcastData';
 import { clientCredentials } from '../utils/client';
 
 const endpoint = clientCredentials.databaseURL;
@@ -7,7 +7,7 @@ const endpoint = clientCredentials.databaseURL;
 const viewPlaylistDetails = (playlistId) => new Promise((resolve, reject) => {
   getSinglePlaylist(playlistId)
     .then((playlistObject) => {
-      getSinglePodcast(playlistObject.podcastId)
+      getAllPodcastsForSinglePlaylist(playlistObject.id)
         .then((podcastObject) => {
           resolve({ podcastObject, ...playlistObject });
         });
@@ -16,14 +16,13 @@ const viewPlaylistDetails = (playlistId) => new Promise((resolve, reject) => {
 
 // Adds a podcast to a playlist by creating a new Playlist-Podcast entity on the joined table.
 const createPlaylistPodcastRelationship = (playlistID, podcastID) => {
-
   // Pass in playlistID and podcastID from the function parameters into the payload to create a new Playlist-Podcast Object.
   const payload = {
     playlistId: playlistID,
-    podcastId: podcastID
+    podcastId: podcastID,
   };
 
-  // Posts the payload to the Playlist-Podcast Database. Note: The Back-End API call will return a 400 error if this relationship already 
+  // Posts the payload to the Playlist-Podcast Database. Note: The Back-End API call will return a 400 error if this relationship already
   // exists, preventing users from adding a podcast more than once to a playlist.
   return new Promise((resolve, reject) => {
     fetch(`${endpoint}/api/addPodcastToPlaylist/${playlistID}/${podcastID}`, {
@@ -33,15 +32,23 @@ const createPlaylistPodcastRelationship = (playlistID, podcastID) => {
       },
       body: JSON.stringify(payload),
     })
-    .then(response => response.json())
-    .then(data => resolve(data))
-    .catch(reject);
+      .then((response) => response.json())
+      .then((data) => resolve(data))
+      .catch(reject);
   });
 };
 
+const viewPodcastDetails = (podcastId) => new Promise((resolve, reject) => {
+  getSinglePodcast(podcastId).then((podcastObject) => {
+    getSinglePodcast(podcastObject.podcastId)
+      .then((playlistObject) => {
+        resolve({ ...playlistObject, podcastObject });
+      });
+  }).catch((error) => reject(error));
+});
 
-export { 
+export {
   viewPlaylistDetails,
+  viewPodcastDetails,
   createPlaylistPodcastRelationship,
-}
-
+};
