@@ -4,7 +4,7 @@ import { getSinglePodcast, getAllPodcastsForSinglePlaylist } from './podcastData
 const viewPlaylistDetails = (playlistId) => new Promise((resolve, reject) => {
   getSinglePlaylist(playlistId)
     .then((playlistObject) => {
-      getAllPodcastsForSinglePlaylist(playlistObject.podcastId)
+      getAllPodcastsForSinglePlaylist(playlistObject.id)
         .then((podcastObject) => {
           resolve({ podcastObject, ...playlistObject });
         });
