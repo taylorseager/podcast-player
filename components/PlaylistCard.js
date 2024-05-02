@@ -20,8 +20,9 @@ function PlaylistCard({ playlistObj, onUpdate }) {
         <Link href={`/playlist/${playlistObj.id}`} passHref>
           <Button variant="primary" className="m-2">VIEW</Button>
         </Link>
-
-        <Button variant="info">EDIT</Button>
+        <Link href={`/playlist/edit/${playlistObj.id}`} passHref>
+          <Button variant="info">EDIT</Button>
+        </Link>
         <Button variant="danger" onClick={deleteThisPlaylist} className="m-2">DELETE</Button>
       </Card.Body>
     </Card>

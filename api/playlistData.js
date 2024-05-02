@@ -29,6 +29,19 @@ const getSinglePlaylist = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+// gets a single playlist by title
+const getSinglePlaylistByTitle = (title) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/api/getSinglePlaylistByTitle/${title}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve((data)))
+    .catch(reject);
+});
+
 // gets all playlists for a single user based on userId
 const getAllUserPlaylists = (userId) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/api/getAllUserPlaylists/${userId}`, {
@@ -57,14 +70,15 @@ const createPlaylist = (payload) => new Promise((resolve, reject) => {
 });
 
 // updates playlist based on specific id
-const updatePlaylist = (id) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/api/updatePlaylist/${id}`, {
-    method: 'PUT',
+const updatePlaylist = (payload) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/api/updatePlaylist/${payload.id}`, {
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
+    body: JSON.stringify(payload),
   })
-    .then((response) => response.json())
+    .then((response) => response.text())
     .then((data) => resolve((data)))
     .catch(reject);
 });
@@ -89,4 +103,5 @@ export {
   createPlaylist,
   updatePlaylist,
   deletePlaylist,
+  getSinglePlaylistByTitle,
 };

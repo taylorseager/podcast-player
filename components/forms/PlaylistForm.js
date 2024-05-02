@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { FloatingLabel, Form, Button } from 'react-bootstrap';
 import { createPlaylist, updatePlaylist } from '../../api/playlistData';
+import { getUserIDByUID } from '../../api/userData';
 import { useAuth } from '../../utils/context/authContext';
 
 const initialState = {
@@ -20,7 +21,7 @@ function PlaylistForm({ playlistObj }) {
   const { user } = useAuth();
 
   useEffect(() => {
-    if (playlistObj && playlistObj.id) {
+    if (playlistObj.id) {
       setFormInput(playlistObj); // Populate form if playlistObj is provided and has an id
     }
   }, [playlistObj, user]);
@@ -35,18 +36,34 @@ function PlaylistForm({ playlistObj }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (playlistObj && playlistObj.id) {
+    if (playlistObj.id) {
       updatePlaylist(formInput).then(() => router.push('/podcasts'));
     } else {
-      const payload = { ...formInput, ownerID: -1 };
-      console.warn('The contents of the payload are:', payload);
-      createPlaylist(payload).then(() => router.push('/podcasts'));
+      // Fetch the user's ID based on their firebaseKey (uid) before creating the playlist
+      getUserIDByUID(user.uid).then((userData) => {
+        if (!userData || userData.length === 0) {
+          alert('No user found with the given UID');
+          return;
+        }
+
+        const ownerID = userData[0].id;
+        const payload = { ...formInput, ownerID };
+
+        createPlaylist(payload).then(({ name }) => {
+          const patchPayload = { id: name };
+          updatePlaylist(patchPayload).then(() => {
+            router.push('/podcasts');
+          });
+        }).catch((error) => {
+          console.error('Failed to get user ID:', error);
+        });
+      });
     }
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <h2 className="text-white mt-5">{playlistObj && playlistObj.id ? 'Update' : 'Create'} Playlist</h2>
+      <h2 className="text-white mt-5">{playlistObj?.id ? 'Update' : 'Create'} Playlist</h2>
 
       {/* PLAYLIST NAME INPUT */}
       <FloatingLabel controlId="floatingInput1" label="Playlist Name" className="mb-3">
@@ -73,7 +90,7 @@ function PlaylistForm({ playlistObj }) {
       </FloatingLabel>
 
       {/* SUBMIT BUTTON */}
-      <Button type="submit">{playlistObj && playlistObj.id ? 'Update' : 'Create'} Playlist</Button>
+      <Button type="submit">{playlistObj?.id ? 'Update' : 'Create'} Playlist</Button>
     </Form>
   );
 }
