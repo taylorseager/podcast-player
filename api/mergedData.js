@@ -6,12 +6,16 @@ const endpoint = clientCredentials.databaseURL;
 
 const viewPlaylistDetails = (playlistId) => new Promise((resolve, reject) => {
   getSinglePlaylist(playlistId)
-    .then((playlistObject) => {
-      getAllPodcastsForSinglePlaylist(playlistObject.id)
+    .then((playlistObj) => {
+      getAllPodcastsForSinglePlaylist(playlistObj.id)
         .then((podcastObject) => {
-          resolve({ podcastObject, ...playlistObject });
+          resolve({ podcastObject, ...playlistObj });
         });
     }).catch((error) => reject(error));
+  // Promise.all([getSinglePlaylist(playlistId), getAllPodcastsForSinglePlaylist(playlistId)])
+  //   .then(([playlistObj, playlistPodcastArray]) => {
+  //     resolve({ ...playlistObj, playlist: playlistPodcastArray });
+  //   }).catch((error) => reject(error));
 });
 
 // Adds a podcast to a playlist by creating a new Playlist-Podcast entity on the joined table.
@@ -47,8 +51,21 @@ const viewPodcastDetails = (podcastId) => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
+const deletePodcastfromPlaylist = (podcastId, playlistId) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/api/DeletePodcastFromPlaylist/${playlistId}/${podcastId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'applicaton/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
+
 export {
   viewPlaylistDetails,
   viewPodcastDetails,
   createPlaylistPodcastRelationship,
+  deletePodcastfromPlaylist,
 };
