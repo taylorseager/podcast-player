@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useAuth } from '../../utils/context/authContext';
-import { getAllPlaylists, getSinglePlaylistByTitle } from '../../api/playlistData';
+import { getAllPlaylists, getSinglePlaylistByTitle, incrementPodcastQuantity } from '../../api/playlistData';
 import { createPlaylistPodcastRelationship } from '../../api/mergedData';
 
 export default function AddToPlaylistForm() {
@@ -26,6 +26,7 @@ export default function AddToPlaylistForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Fetch details for each playlist based on the selected titles.
     const detailPromises = selectedPlaylists.map((title) => getSinglePlaylistByTitle(title).catch((error) => {
       console.error(`Failed to fetch details for playlist '${title}':`, error);
       return null; // Return null for failed fetches
@@ -33,13 +34,14 @@ export default function AddToPlaylistForm() {
 
     Promise.all(detailPromises)
       .then((details) => {
-      // Filter out nulls and extract IDs
+        // Filter out nulls and extract IDs
         const playlistIds = details.filter((detail) => detail && detail.id).map((detail) => detail.id);
 
-        // Create relationships for each playlistId
+        // Create relationships and then increment the podcast quantity for each playlistId
         const relationshipPromises = playlistIds.map((playlistId) => createPlaylistPodcastRelationship(playlistId, id)
+          .then(() => incrementPodcastQuantity(playlistId)) // Increment quantity after a successful relationship creation
           .catch((error) => {
-            console.error(`Failed to create relationship for playlist ${playlistId}:`, error);
+            console.error(`Failed to create relationship or increment for playlist ${playlistId}:`, error);
             return null;
           }));
 
@@ -48,8 +50,6 @@ export default function AddToPlaylistForm() {
       .catch((error) => {
         console.error('Error processing details or relationships:', error);
       });
-
-    router.push('/podcasts');
   };
 
   // Creates and dynamically updates an array of the currently checked boxes on the form.
