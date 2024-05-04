@@ -7,6 +7,7 @@ import {
   Nav,
   Button,
 } from 'react-bootstrap';
+import logo from '../public/logo.png';
 import { signOut } from '../utils/auth';
 
 export default function NavBar() {
@@ -14,7 +15,15 @@ export default function NavBar() {
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
         <Link passHref href="/">
-          <Navbar.Brand>Podcast Player</Navbar.Brand>
+          <Navbar.Brand>
+            <img
+              src={logo}
+              width="20"
+              height="20"
+              className="d-inline-block align-top"
+              alt="SoundScape circular logo"
+            />
+          </Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
