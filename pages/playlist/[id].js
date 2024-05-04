@@ -15,7 +15,7 @@ export default function ViewPlaylists() {
   return (
     <div className="mt-5 d-flex flex-wrap">
       <p>
-        {playlistDetails.podcastObject?.podcasts.map((podcast) => (
+        {playlistDetails.podcastObject?.podcasts?.map((podcast) => (
           <PodcastCard podcastObj={podcast} key={podcast.id} />
         ))}
       </p>

@@ -33,8 +33,7 @@ export default function PodcastCard({ podcastObj }) {
         {playlistDetails.title
           ? (
             <Button variant="primary" className="m-2">Remove</Button>
-          )
-          : ''}
+          ) : ''}
       </Card.Body>
     </Card>
   );
