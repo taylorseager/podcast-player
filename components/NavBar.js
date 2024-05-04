@@ -7,7 +7,7 @@ import {
   Nav,
   Button,
 } from 'react-bootstrap';
-import logo from '../public/logo.png';
+import logo from '../public/PodcastPlayerLogo.svg';
 import { signOut } from '../utils/auth';
 
 export default function NavBar() {
@@ -18,10 +18,7 @@ export default function NavBar() {
           <Navbar.Brand>
             <img
               src={logo}
-              width="20"
-              height="20"
-              className="d-inline-block align-top"
-              alt="SoundScape circular logo"
+              alt="SoundScape Logo"
             />
           </Navbar.Brand>
         </Link>
