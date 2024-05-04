@@ -3,15 +3,22 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { useRouter } from 'next/router';
-import { viewPlaylistDetails } from '../api/mergedData';
+import { deletePodcastfromPlaylist, viewPlaylistDetails } from '../api/mergedData';
 
-export default function PodcastCard({ podcastObj }) {
+export default function PodcastCard({ podcastObj, onUpdate }) {
   const [playlistDetails, setPlaylistDetails] = useState({});
   const router = useRouter();
   const { id } = router.query;
+
   useEffect(() => {
     viewPlaylistDetails(id).then(setPlaylistDetails);
   }, [id]);
+
+  const removeThisPodcast = () => {
+    if (window.confirm(`Remove ${podcastObj.name}?`)) {
+      deletePodcastfromPlaylist(playlistDetails.id, podcastObj.id).then(() => onUpdate());
+    }
+  };
 
   return (
     <Card className="podcastCard" style={{ width: '18rem' }}>
@@ -32,7 +39,7 @@ export default function PodcastCard({ podcastObj }) {
         </Link>
         {playlistDetails.title
           ? (
-            <Button variant="primary" className="m-2">Remove</Button>
+            <Button variant="danger" onClick={removeThisPodcast} className="m-2">Remove</Button>
           ) : ''}
       </Card.Body>
     </Card>
@@ -48,4 +55,6 @@ PodcastCard.propTypes = {
     description: PropTypes.string,
     length: PropTypes.number,
   }).isRequired,
+  onUpdate: PropTypes.func.isRequired,
+
 };

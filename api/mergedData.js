@@ -51,14 +51,15 @@ const viewPodcastDetails = (podcastId) => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
-const deletePodcastfromPlaylist = (podcastId, playlistId) => new Promise((resolve, reject) => {
+const deletePodcastfromPlaylist = (playlistId, podcastId) => new Promise((resolve, reject) => {
+  console.warn(playlistId, podcastId);
   fetch(`${endpoint}/api/DeletePodcastFromPlaylist/${playlistId}/${podcastId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'applicaton/json',
     },
   })
-    .then((response) => response.json())
+    .then((response) => response.text())
     .then((data) => resolve(data))
     .catch(reject);
 });

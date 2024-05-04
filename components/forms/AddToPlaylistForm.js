@@ -47,10 +47,6 @@ export default function AddToPlaylistForm() {
 
         return Promise.all(relationshipPromises);
       })
-      .then((relationshipResults) => {
-        console.log('All relationships created and quantities updated:', relationshipResults);
-        router.push('/podcasts'); // Redirect after all operations are complete
-      })
       .catch((error) => {
         console.error('Error processing details or relationships:', error);
       });
