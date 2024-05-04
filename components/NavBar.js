@@ -14,14 +14,14 @@ export default function NavBar() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <Link passHref href="/">
-          <Navbar.Brand>
-            <img
-              src={logo}
-              alt="SoundScape Logo"
-            />
-          </Navbar.Brand>
-        </Link>
+
+        <Navbar.Brand href="/">
+          <img
+            src={logo}
+            alt="SoundScape Logo"
+          />
+        </Navbar.Brand>
+
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
