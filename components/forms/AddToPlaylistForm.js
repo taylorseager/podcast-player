@@ -45,9 +45,6 @@ export default function AddToPlaylistForm() {
 
         return Promise.all(relationshipPromises);
       })
-      .then((relationshipResults) => {
-        console.log('All relationships created:', relationshipResults);
-      })
       .catch((error) => {
         console.error('Error processing details or relationships:', error);
       });

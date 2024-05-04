@@ -8,15 +8,19 @@ export default function ViewPlaylists() {
   const router = useRouter();
   const { id } = router.query;
 
-  useEffect(() => {
+  const viewAllPlaylistDetails = () => {
     viewPlaylistDetails(id).then(setPlaylistDetails);
-  }, [id]);
+  };
+
+  useEffect(() => {
+    viewAllPlaylistDetails();
+  }, []);
 
   return (
     <div className="mt-5 d-flex flex-wrap">
       <p>
         {playlistDetails.podcastObject?.podcasts?.map((podcast) => (
-          <PodcastCard podcastObj={podcast} key={podcast.id} />
+          <PodcastCard podcastObj={podcast} onUpdate={viewAllPlaylistDetails} key={podcast.id} />
         ))}
       </p>
       <div className="text-whie ms-5 details">
