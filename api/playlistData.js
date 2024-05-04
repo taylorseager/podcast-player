@@ -96,6 +96,26 @@ const deletePlaylist = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+// Increments Podcast Quantity on a Playlist
+const incrementPodcastQuantity = (playlistId) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/api/incrementPodcastQuantity/${playlistId}`, {
+    method: 'PATCH', 
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(response => {
+    if (response.ok) {
+      // Process the response if it's OK
+      return response.json(); 
+    }
+    // Throw an error if response not OK
+    throw new Error('Failed to increment podcast quantity'); 
+  })
+  .then(data => resolve(data))
+  .catch(reject);
+});
+
 export {
   getAllPlaylists,
   getSinglePlaylist,
@@ -104,4 +124,5 @@ export {
   updatePlaylist,
   deletePlaylist,
   getSinglePlaylistByTitle,
+  incrementPodcastQuantity,
 };
