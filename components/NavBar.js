@@ -6,22 +6,21 @@ import {
   Container,
   Nav,
   Button,
+  Image,
 } from 'react-bootstrap';
-import logo from '../public/PodcastPlayerLogo.svg';
+import logo from '../public/PodcastPlayerLogo.png';
 import { signOut } from '../utils/auth';
 
 export default function NavBar() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-
-        <Navbar.Brand href="/">
-          <img
-            src={logo}
-            alt="SoundScape Logo"
-          />
-        </Navbar.Brand>
-
+        <Image
+          src={logo}
+          width="50"
+          height="50"
+          alt="SoundScape"
+        />
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
