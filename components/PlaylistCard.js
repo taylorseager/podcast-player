@@ -25,7 +25,7 @@ function PlaylistCard({ playlistObj, onUpdate }) {
       <Card.Body>
         <Card.Title>{playlistObj.title}</Card.Title>
         <p>Playlist Quantity: {playlistObj.podcastQuantity}</p>
-        <p>Favorite: <Button variant="dark" onClick={toggleFavorite}><span>{playlistObj.favorite ? '💚' : '🤍'}</span></Button></p>
+        <p>Favorite: <Button variant="dark" onClick={toggleFavorite}><span>{playlistObj.favorite ? '🥰' : '🖤'}</span></Button></p>
         <Link href={`/playlist/${playlistObj.id}`} passHref>
           <Button variant="primary" className="m-2">VIEW</Button>
         </Link>
