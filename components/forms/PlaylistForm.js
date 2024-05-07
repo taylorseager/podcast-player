@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { FloatingLabel, Form, Button } from 'react-bootstrap';
-import { createPlaylist, updatePlaylist } from '../../api/playlistData';
+import { createPlaylist, updatePlaylist, getSinglePlaylistByTitle } from '../../api/playlistData';
 import { getUserIDByUID } from '../../api/userData';
 import { useAuth } from '../../utils/context/authContext';
 
@@ -48,15 +48,28 @@ function PlaylistForm({ playlistObj }) {
 
         const ownerID = userData[0].id;
         const payload = { ...formInput, ownerID };
+        console.warn('Contents of payload: ', payload);
 
-        createPlaylist(payload).then(({ name }) => {
-          const patchPayload = { id: name };
-          updatePlaylist(patchPayload).then(() => {
-            router.push('/podcasts');
+        // Check that a playlist with the proposed Playlist Name doesn't already exist in the user's database, preventing duplicates.
+        getSinglePlaylistByTitle(payload.title).then((playlistData) => {
+          if (playlistData) {
+            alert('You already have a playlist with that name. Please create a unique name for this playlist.');
+            return;
+          }
+
+          createPlaylist(payload).then(({ name }) => {
+            const patchPayload = { id: name };
+            updatePlaylist(patchPayload).then(() => {
+              router.push('/podcasts');
+            });
+          }).catch((error) => {
+            console.error('Failed to create playlist:', error);
           });
         }).catch((error) => {
-          console.error('Failed to get user ID:', error);
+          console.error('Failed to check existing playlist:', error);
         });
+      }).catch((error) => {
+        console.error('Failed to get user ID:', error);
       });
     }
   };
