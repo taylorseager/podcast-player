@@ -2,9 +2,17 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import { deletePlaylist } from '../api/playlistData';
+import { deletePlaylist, updatePlaylist } from '../api/playlistData';
 
 function PlaylistCard({ playlistObj, onUpdate }) {
+  const toggleFavorite = () => {
+    if (playlistObj.favorite) {
+      updatePlaylist({ ...playlistObj, favorite: false }).then(onUpdate);
+    } else {
+      updatePlaylist({ ...playlistObj, favorite: true }).then(onUpdate);
+    }
+  };
+
   const deleteThisPlaylist = () => {
     if (window.confirm(`Are you 1000% positive you want to delete ${playlistObj.title}? This action cannot be undone.`)) {
       deletePlaylist(playlistObj.id).then(() => onUpdate());
@@ -17,7 +25,7 @@ function PlaylistCard({ playlistObj, onUpdate }) {
       <Card.Body>
         <Card.Title>{playlistObj.title}</Card.Title>
         <p>Playlist Quantity: {playlistObj.podcastQuantity}</p>
-        <p>Favorite: {playlistObj.favorite ? '🤍' : ''}</p>
+        <p>Favorite: <Button variant="dark" onClick={toggleFavorite}><span>{playlistObj.favorite ? '💚' : '🤍'}</span></Button></p>
         <Link href={`/playlist/${playlistObj.id}`} passHref>
           <Button variant="primary" className="m-2">VIEW</Button>
         </Link>
