@@ -34,3 +34,7 @@ body {
   width: 286px;
   object-fit: cover;
 }
+
+.homeLogo {
+  margin-bottom: 20px;
+}
