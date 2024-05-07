@@ -21,6 +21,17 @@ a {
   margin: 10px;
 }
 
+.playlistCard {
+  margin: 10px;
+}
+
 body {
-  background-color: #88effd;
+  background-image: url('https://imgur.com/a/WOXMAMf');
+  background-size: cover;
+}
+
+.imageFormat {
+  height: 200px;
+  width: 286px;
+  object-fit: cover;
 }

@@ -6,7 +6,7 @@ export default function PodcastCard({ podcastObj }) {
   return (
     <Card className="podcastCard" style={{ width: '18rem' }}>
       <Card.Title>{podcastObj.name}</Card.Title>
-      <Card.Img variant="top" src={podcastObj.image} />
+      <Card.Img className="imageFormat" variant="top" src={podcastObj.image} />
       <Card.Body>
         <Card.Text>
           Author(s): {podcastObj.author}

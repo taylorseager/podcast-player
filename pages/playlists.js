@@ -16,10 +16,13 @@ export default function ViewPlaylists() {
   }, []);
 
   return (
-    <div className="d-flex flex-wrap">
-      {playlists.map((playlist) => (
-        <PlaylistCard key={playlist.ownerID} playlistObj={playlist} onUpdate={getAllUserPlaylists} />
-      ))}
-    </div>
+    <>
+      <h1>Playlists</h1>
+      <div className="d-flex flex-wrap">
+        {playlists.map((playlist) => (
+          <PlaylistCard key={playlist.ownerID} playlistObj={playlist} onUpdate={getAllUserPlaylists} />
+        ))}
+      </div>
+    </>
   );
 }
