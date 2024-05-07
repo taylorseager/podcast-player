@@ -47,6 +47,9 @@ export default function AddToPlaylistForm() {
 
         return Promise.all(relationshipPromises);
       })
+      .then(() => {
+        router.push('/playlists');
+      })
       .catch((error) => {
         console.error('Error processing details or relationships:', error);
       });

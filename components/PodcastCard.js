@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import { deletePodcastfromPlaylist, viewPlaylistDetails } from '../api/mergedData';
+import { decrementPodcastQuantity } from '../api/playlistData';
 
 export default function PodcastCard({ podcastObj, onUpdate }) {
   const [playlistDetails, setPlaylistDetails] = useState({});
@@ -16,6 +17,7 @@ export default function PodcastCard({ podcastObj, onUpdate }) {
 
   const removeThisPodcast = () => {
     if (window.confirm(`Remove ${podcastObj.name}?`)) {
+      decrementPodcastQuantity(playlistDetails.id);
       deletePodcastfromPlaylist(playlistDetails.id, podcastObj.id).then(() => onUpdate());
     }
   };

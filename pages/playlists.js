@@ -9,6 +9,7 @@ export default function ViewPlaylists() {
   const getAllUserPlaylists = () => {
     getAllPlaylists(user.uid).then(setPlaylists);
   };
+  // Fixes a bug with rendering the correct Podcast Quantity
 
   useEffect(() => {
     getAllUserPlaylists();

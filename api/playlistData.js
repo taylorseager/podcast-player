@@ -116,6 +116,27 @@ const incrementPodcastQuantity = (playlistId) => new Promise((resolve, reject) =
   .catch(reject);
 });
 
+// Decrements Podcast Quantity on a Playlist
+const decrementPodcastQuantity = (playlistId) => new Promise((resolve, reject) => {
+  console.log(`Attempting to decrement podcast quantity for playlist ID: ${playlistId}`);
+  fetch(`${endpoint}/api/decrementPodcastQuantity/${playlistId}`, {
+    method: 'PATCH', 
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(response => {
+    if (response.ok) {
+      // Process the response if it's OK
+      return response.json(); 
+    }
+    // Throw an error if response not OK
+    throw new Error('Failed to decrement podcast quantity'); 
+  })
+  .then(data => resolve(data))
+  .catch(reject);
+});
+
 export {
   getAllPlaylists,
   getSinglePlaylist,
@@ -125,4 +146,5 @@ export {
   deletePlaylist,
   getSinglePlaylistByTitle,
   incrementPodcastQuantity,
+  decrementPodcastQuantity,
 };
