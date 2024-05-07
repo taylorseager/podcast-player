@@ -14,7 +14,12 @@ export default function NavBar() {
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
         <Link passHref href="/">
-          <Navbar.Brand>Podcast Player</Navbar.Brand>
+          <img
+            src="https://i.imgur.com/JoX5Wib.png"
+            width="50"
+            height="50"
+            alt="SoundScape"
+          />
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

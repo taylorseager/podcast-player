@@ -12,8 +12,8 @@ function PlaylistCard({ playlistObj, onUpdate }) {
   };
 
   return (
-    <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src={playlistObj.image} />
+    <Card className="playlistCard" style={{ width: '18rem' }}>
+      <Card.Img className="imageFormat" variant="top" src={playlistObj.image} />
       <Card.Body>
         <Card.Title>{playlistObj.title}</Card.Title>
         <p>Playlist Quantity: {playlistObj.podcastQuantity}</p>
