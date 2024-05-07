@@ -19,10 +19,12 @@ a {
 
 .podcastCard {
   margin: 10px;
+  height: 450px;
 }
 
 .playlistCard {
   margin: 10px;
+  height: 360px;
 }
 
 body {
@@ -37,4 +39,9 @@ body {
 
 .homeLogo {
   margin-bottom: 20px;
+}
+
+.podcastCardViewDetails {
+  display: flex;
+  align-items: flex-start;
 }

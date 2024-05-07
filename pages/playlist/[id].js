@@ -18,19 +18,15 @@ export default function ViewPlaylists() {
 
   return (
     <div className="mt-5 d-flex flex-wrap">
-      <p>
+      <div className="text-whie ms-5 details">
+        <h2>{playlistDetails.title || ''}</h2>
+        <h4>Podcast Quantity: {playlistDetails.podcastQuantity || ''}</h4>
+        <img src={playlistDetails.image} alt="img" style={{ width: '100px' }} />
+      </div>
+      <div className="podcastCardViewDetails">
         {playlistDetails.podcastObject?.podcasts?.map((podcast) => (
           <PodcastCard podcastObj={podcast} onUpdate={viewAllPlaylistDetails} key={podcast.id} />
         ))}
-      </p>
-      <div className="text-whie ms-5 details">
-        <h5>
-          {playlistDetails.title || ''}
-          <p>Podcast Quantity: {playlistDetails.podcastQuantity || ''}</p>
-          <p>Playlist Image:</p>
-          <img src={playlistDetails.image} alt="img" style={{ width: '100px' }} />
-
-        </h5>
       </div>
     </div>
   );
