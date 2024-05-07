@@ -17,6 +17,7 @@ function PlaylistCard({ playlistObj, onUpdate }) {
       <Card.Body>
         <Card.Title>{playlistObj.title}</Card.Title>
         <p>Playlist Quantity: {playlistObj.podcastQuantity}</p>
+        <p>Favorite: {playlistObj.favorite ? '🤍' : ''}</p>
         <Link href={`/playlist/${playlistObj.id}`} passHref>
           <Button variant="primary" className="m-2">VIEW</Button>
         </Link>
@@ -36,6 +37,7 @@ PlaylistCard.propTypes = {
     image: PropTypes.string,
     podcastQuantity: PropTypes.number,
     ownerID: PropTypes.number,
+    favorite: PropTypes.bool,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
