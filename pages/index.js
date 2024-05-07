@@ -10,10 +10,11 @@ function Home() {
       style={{
         height: '90vh',
         padding: '30px',
-        maxWidth: '400px',
+        maxWidth: '500px',
         margin: '0 auto',
       }}
     >
+      <img src="https://i.imgur.com/88sWA0R.png" alt="SoundScape Logo" className="homeLogo" />
       <h1>Hello {user.displayName}!</h1>
       <p>Click the button below to logout!</p>
       <Button variant="danger" type="button" size="lg" className="copy-btn" onClick={signOut}>
