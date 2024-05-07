@@ -48,11 +48,11 @@ function PlaylistForm({ playlistObj }) {
 
         const ownerID = userData[0].id;
         const payload = { ...formInput, ownerID };
-        console.warn('Contents of payload: ', payload);
 
         // Check that a playlist with the proposed Playlist Name doesn't already exist in the user's database, preventing duplicates.
         getSinglePlaylistByTitle(payload.title).then((playlistData) => {
-          if (playlistData) {
+          console.warn('Playlist Data: ', playlistData);
+          if (playlistData !== 'Playlist Not Found.') {
             alert('You already have a playlist with that name. Please create a unique name for this playlist.');
             return;
           }
