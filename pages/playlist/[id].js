@@ -19,7 +19,7 @@ export default function ViewPlaylists() {
   return (
     <div className="mt-5 d-flex flex-wrap">
       <div className="text-whie ms-5 details">
-        <h2>{playlistDetails.title || ''} {playlistDetails.favorite ? ' 🤍' : ''}</h2>
+        <h2>{playlistDetails.title || ''} {playlistDetails.favorite ? ' 🥰' : ''}</h2>
         <h4>Podcast Quantity: {playlistDetails.podcastQuantity || ''}</h4>
         <img src={playlistDetails.image} alt="img" style={{ width: '100px' }} />
       </div>
