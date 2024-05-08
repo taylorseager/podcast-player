@@ -99,42 +99,42 @@ const deletePlaylist = (id) => new Promise((resolve, reject) => {
 // Increments Podcast Quantity on a Playlist
 const incrementPodcastQuantity = (playlistId) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/api/incrementPodcastQuantity/${playlistId}`, {
-    method: 'PATCH', 
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
   })
-  .then(response => {
-    if (response.ok) {
+    .then((response) => {
+      if (response.ok) {
       // Process the response if it's OK
-      return response.json(); 
-    }
-    // Throw an error if response not OK
-    throw new Error('Failed to increment podcast quantity'); 
-  })
-  .then(data => resolve(data))
-  .catch(reject);
+        return response.json();
+      }
+      // Throw an error if response not OK
+      throw new Error('Failed to increment podcast quantity');
+    })
+    .then((data) => resolve(data))
+    .catch(reject);
 });
 
 // Decrements Podcast Quantity on a Playlist
 const decrementPodcastQuantity = (playlistId) => new Promise((resolve, reject) => {
   console.log(`Attempting to decrement podcast quantity for playlist ID: ${playlistId}`);
   fetch(`${endpoint}/api/decrementPodcastQuantity/${playlistId}`, {
-    method: 'PATCH', 
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
   })
-  .then(response => {
-    if (response.ok) {
+    .then((response) => {
+      if (response.ok) {
       // Process the response if it's OK
-      return response.json(); 
-    }
-    // Throw an error if response not OK
-    throw new Error('Failed to decrement podcast quantity'); 
-  })
-  .then(data => resolve(data))
-  .catch(reject);
+        return response.json();
+      }
+      // Throw an error if response not OK
+      throw new Error('Failed to decrement podcast quantity');
+    })
+    .then((data) => resolve(data))
+    .catch(reject);
 });
 
 export {

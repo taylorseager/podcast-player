@@ -45,3 +45,10 @@ body {
   display: flex;
   align-items: flex-start;
 }
+
+.toggleButton {
+  width: 30px;
+  padding: 0px;
+  background: none;
+  border: none;
+}
