@@ -17,7 +17,7 @@ export default function ViewPodcasts() {
     <>
       <h1>Podcasts</h1>
       <div className="d-flex flex-wrap">
-        {podcasts.map((podcast) => (<PodcastCard podcastObj={podcast} key={podcast.id} />))}
+        {podcasts.map((podcast) => (<PodcastCard podcastObj={podcast} key={podcast.id} onUpdate={getPodcasts} />))}
       </div>
     </>
   );

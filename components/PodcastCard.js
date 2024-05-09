@@ -5,11 +5,21 @@ import { Button, Card } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import { deletePodcastfromPlaylist, viewPlaylistDetails } from '../api/mergedData';
 import { decrementPodcastQuantity } from '../api/playlistData';
+import { updatePodcast } from '../api/podcastData';
 
 export default function PodcastCard({ podcastObj, onUpdate }) {
   const [playlistDetails, setPlaylistDetails] = useState({});
   const router = useRouter();
   const { id } = router.query;
+
+  const toggleFavorite = () => {
+    if (podcastObj.favorite) {
+      updatePodcast({ ...podcastObj, favorite: false }).then(() => onUpdate());
+      console.warn(podcastObj);
+    } else {
+      updatePodcast({ ...podcastObj, favorite: true }).then(() => onUpdate());
+    }
+  };
 
   useEffect(() => {
     viewPlaylistDetails(id).then(setPlaylistDetails);
@@ -24,7 +34,7 @@ export default function PodcastCard({ podcastObj, onUpdate }) {
 
   return (
     <Card className="podcastCard" style={{ width: '18rem' }}>
-      <Card.Title>{podcastObj.name}</Card.Title>
+      <Card.Title>{podcastObj.name}<Button variant="light" className="toggleButton m-2" onClick={toggleFavorite}>{podcastObj.favorite ? '❤️' : '🤍'}</Button></Card.Title>
       <Card.Img className="imageFormat" variant="top" src={podcastObj.image} />
       <Card.Body>
         <Card.Text>
@@ -56,6 +66,7 @@ PodcastCard.propTypes = {
     author: PropTypes.string,
     description: PropTypes.string,
     length: PropTypes.number,
+    favorite: PropTypes.bool,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 
