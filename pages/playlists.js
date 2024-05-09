@@ -21,7 +21,7 @@ export default function ViewPlaylists() {
       <h1>Playlists</h1>
       <div className="d-flex flex-wrap">
         {playlists.map((playlist) => (
-          <PlaylistCard key={playlist.ownerID} playlistObj={playlist} onUpdate={getAllUserPlaylists} />
+          <PlaylistCard key={playlist.id} playlistObj={playlist} onUpdate={getAllUserPlaylists} />
         ))}
       </div>
     </>
