@@ -7,9 +7,9 @@ import { deletePlaylist, updatePlaylist } from '../api/playlistData';
 function PlaylistCard({ playlistObj, onUpdate }) {
   const toggleFavorite = () => {
     if (playlistObj.favorite) {
-      updatePlaylist({ ...playlistObj, favorite: false }).then(onUpdate);
+      updatePlaylist({ ...playlistObj, favorite: false }).then(() => onUpdate());
     } else {
-      updatePlaylist({ ...playlistObj, favorite: true }).then(onUpdate);
+      updatePlaylist({ ...playlistObj, favorite: true }).then(() => onUpdate());
     }
   };
 
@@ -25,7 +25,7 @@ function PlaylistCard({ playlistObj, onUpdate }) {
       <Card.Body>
         <Card.Title>{playlistObj.title}</Card.Title>
         <p>Playlist Quantity: {playlistObj.podcastQuantity}</p>
-        <p>Favorite: <Button variant="dark" onClick={toggleFavorite}><span>{playlistObj.favorite ? '🥰' : '🖤'}</span></Button></p>
+        <Button variant="light" onClick={toggleFavorite}>{playlistObj.favorite ? '💛' : '🖤'}</Button>
         <Link href={`/playlist/${playlistObj.id}`} passHref>
           <Button variant="primary" className="m-2">VIEW</Button>
         </Link>
