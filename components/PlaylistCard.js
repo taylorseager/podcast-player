@@ -23,9 +23,8 @@ function PlaylistCard({ playlistObj, onUpdate }) {
     <Card className="playlistCard" style={{ width: '18rem' }}>
       <Card.Img className="imageFormat" variant="top" src={playlistObj.image} />
       <Card.Body>
-        <Card.Title>{playlistObj.title}</Card.Title>
+        <Card.Title>{playlistObj.title} <Button variant="light" onClick={toggleFavorite}>{playlistObj.favorite ? '❤️' : '🤍'}</Button></Card.Title>
         <p>Playlist Quantity: {playlistObj.podcastQuantity}</p>
-        <Button variant="light" onClick={toggleFavorite}>{playlistObj.favorite ? '❤️' : '🤍'}</Button>
         <Link href={`/playlist/${playlistObj.id}`} passHref>
           <Button variant="primary" className="m-2">VIEW</Button>
         </Link>
