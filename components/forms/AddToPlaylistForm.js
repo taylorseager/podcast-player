@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useAuth } from '../../utils/context/authContext';
-import { getAllPlaylists, getSinglePlaylistByTitle } from '../../api/playlistData';
+import { getAllPlaylists, getSinglePlaylistByTitle, incrementPodcastQuantity } from '../../api/playlistData';
 import { createPlaylistPodcastRelationship, checkPlaylistPodcastRelationship } from '../../api/mergedData';
 
 export default function AddToPlaylistForm() {
@@ -14,17 +14,15 @@ export default function AddToPlaylistForm() {
   const { user } = useAuth();
   const { id: podcastId } = router.query;
 
-
   useEffect(() => {
     getAllPlaylists(user.ownerID)
       .then((playlistData) => {
         // Fetch all playlists and then filter out playlists where the podcast already exists
         Promise.all(playlistData.map((playlistObject) => checkPlaylistPodcastRelationship(playlistObject.id, podcastId)))
-
           .then((results) => {
-            // Filter out playlists where the podcast already exists
+          // Filter out playlists where the podcast already exists
             console.warn(results);
-            const filteredPlaylists = playlistData.filter((podcastId, index) => !results[index]);
+            const filteredPlaylists = playlistData.filter((playlistObject, index) => !results[index]);
             setPlaylists(filteredPlaylists);
           })
           .catch((error) => {
@@ -35,16 +33,6 @@ export default function AddToPlaylistForm() {
         console.error('Error fetching playlists:', error);
       });
   }, [user]);
-  
-  // useEffect(() => {
-  //   getAllPlaylists(user.ownerID).then(setPlaylists);
-  //   getAllPlaylists(user.ownerID).then((playlistData) => { 
-  //     console.warn(playlistData);
-  //     playlistData.map((id) => checkPlaylistPodcastRelationship(id).catch((error) =>
-  //    });
-  //   console.warn(id);
-  //   checkPlaylistPodcastRelationship()
-  // }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
