@@ -8,13 +8,14 @@ import { createPodcast, updatePodcast } from '../../api/podcastData';
 const initialState = {
   title: '',
   image: '',
+  author: '',
   description: '',
   favorite: false,
   length: '',
   ownerID: '',
 };
 
-export default function PodcastForm({ podcastObj }) {
+function PodcastForm({ podcastObj }) {
   const [formInput, setFormInput] = useState(initialState);
 
   const router = useRouter();
@@ -22,7 +23,7 @@ export default function PodcastForm({ podcastObj }) {
 
   useEffect(() => {
     if (podcastObj.id) {
-      setFormInput(podcastObj); // Populate form if playlistObj is provided and has an id
+      setFormInput(podcastObj); // Populate form if podcastObj is provided and has an id
     }
   }, [podcastObj, user]);
 
@@ -36,17 +37,18 @@ export default function PodcastForm({ podcastObj }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (podcastObj.id) {
+      updatePodcast(formInput).then(() => router.push('/podcasts'));
+    } else {
+      const payload = { ...formInput, ownerID: user.uid };
+      createPodcast(payload).then(({ name }) => {
+        const patchPayload = { id: name };
+        updatePodcast(patchPayload).then(() => {
+          router.push('/podcasts');
+        });
+      });
+    }
   };
-  const payload = { ...formInput };
-
-  createPodcast(payload).then(({ name }) => {
-    const patchPayload = { id: name };
-    updatePodcast(patchPayload).then(() => {
-      router.push('/podcasts');
-    });
-  }).catch((error) => {
-    console.error('Failed to create playlist:', error);
-  });
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -57,8 +59,20 @@ export default function PodcastForm({ podcastObj }) {
         <Form.Control
           type="text"
           placeholder="Podcast Title"
-          name="title"
-          value={formInput.title}
+          name="name"
+          value={formInput.name}
+          onChange={handleChange}
+          required
+        />
+      </FloatingLabel>
+
+      {/* Podcast author INPUT */}
+      <FloatingLabel controlId="floatingInput1" label="Podcast Author(s)" className="mb-3">
+        <Form.Control
+          type="text"
+          placeholder="Podcast Author(s)"
+          name="author"
+          value={formInput.author}
           onChange={handleChange}
           required
         />
@@ -100,18 +114,6 @@ export default function PodcastForm({ podcastObj }) {
         />
       </FloatingLabel>
 
-      {/* PLAYLIST LENGTH INPUT  */}
-      <FloatingLabel controlId="floatingInput2" label="Podcast Favorite" className="mb-3">
-        <Form.Check // prettier-ignore
-          type="check"
-          id="favorite"
-          label="favorite"
-          value={formInput.favorite}
-          onChange={handleChange}
-          required
-        />
-      </FloatingLabel>
-
       {/* SUBMIT BUTTON */}
       <Button type="submit">{podcastObj?.id ? 'Update' : 'Create'} Podcast</Button>
     </Form>
@@ -131,3 +133,5 @@ PodcastForm.propTypes = {
 PodcastForm.defaultProps = {
   podcastObj: initialState,
 };
+
+export default PodcastForm;

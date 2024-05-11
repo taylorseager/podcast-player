@@ -50,12 +50,13 @@ const getAllPodcastsForSinglePlaylist = (playlistId) => new Promise((resolve, re
 });
 
 // CREATES new podcast
-const createPodcast = () => new Promise((resolve, reject) => {
+const createPodcast = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/api/createPodcast`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
+    body: JSON.stringify(payload),
   })
     .then((response) => response.json())
     .then((data) => resolve((data)))
