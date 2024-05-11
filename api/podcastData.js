@@ -49,6 +49,19 @@ const getAllPodcastsForSinglePlaylist = (playlistId) => new Promise((resolve, re
     .catch(reject);
 });
 
+// CREATES new podcast
+const createPodcast = () => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/api/createPodcast`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve((data)))
+    .catch(reject);
+});
+
 // updates podcast based on specific id
 const updatePodcast = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/api/updatePodcast/${payload.id}`, {
@@ -67,5 +80,6 @@ export {
   getAllPodcasts,
   getSinglePodcast,
   getAllPodcastsForSinglePlaylist,
+  createPodcast,
   updatePodcast,
 };
