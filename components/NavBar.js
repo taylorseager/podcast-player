@@ -34,6 +34,9 @@ export default function NavBar() {
             <Link passHref href="/playlist/newPlaylist">
               <Nav.Link>Create Playlist</Nav.Link>
             </Link>
+            <Link passHref href="/podcast/newPodcast">
+              <Nav.Link>Create Podcast</Nav.Link>
+            </Link>
             <Button variant="danger" onClick={signOut}>
               Sign Out
             </Button>

@@ -52,7 +52,7 @@ export default function PodcastForm({ podcastObj }) {
     <Form onSubmit={handleSubmit}>
       <h2 className="text-white mt-5">{podcastObj?.id ? 'Update' : 'Create'} Podcast</h2>
 
-      {/* PLAYLIST NAME INPUT */}
+      {/* Podcast NAME INPUT */}
       <FloatingLabel controlId="floatingInput1" label="Podcast Title" className="mb-3">
         <Form.Control
           type="text"
@@ -70,7 +70,7 @@ export default function PodcastForm({ podcastObj }) {
           type="text"
           placeholder="Enter a short description of the podcast"
           name="description"
-          value={formInput.image}
+          value={formInput.description}
           onChange={handleChange}
           required
         />
@@ -94,7 +94,7 @@ export default function PodcastForm({ podcastObj }) {
           type="text"
           placeholder="Length of podcast (in mins)"
           name="length"
-          value={formInput.image}
+          value={formInput.length}
           onChange={handleChange}
           required
         />
