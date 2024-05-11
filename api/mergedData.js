@@ -64,9 +64,29 @@ const deletePodcastfromPlaylist = (playlistId, podcastId) => new Promise((resolv
     .catch(reject);
 });
 
+const checkPlaylistPodcastRelationship = (playlistId, podcastIdString) => {
+  const podcastId = parseInt(podcastIdString);
+  console.warn(playlistId, podcastId);
+  return new Promise((resolve, reject) => {
+    fetch(`${endpoint}/api/getAllPlaylistpodcastRelationships/`)
+      .then((response) => response.json())
+      .then((relationships) => {
+        console.warn(relationships);
+        // Check if any relationship matches both playlistId and podcastId
+        const exists = relationships.some((relationship) => {
+          return relationship.playlistId === playlistId && relationship.podcastId === podcastId;
+        });
+        resolve(exists);
+      })
+      .catch(reject);
+  });
+};
+
+
 export {
   viewPlaylistDetails,
   viewPodcastDetails,
   createPlaylistPodcastRelationship,
   deletePodcastfromPlaylist,
+  checkPlaylistPodcastRelationship,
 };
